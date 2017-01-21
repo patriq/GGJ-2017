@@ -3,37 +3,79 @@ pack.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+guitarArm
+  rotate: false
+  xy: 1, 221
+  size: 290, 800
+  orig: 290, 800
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 1, 101
+  size: 224, 118
+  orig: 224, 118
+  offset: 0, 0
+  index: -1
+key-A
+  rotate: false
+  xy: 293, 957
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-K
+  rotate: false
+  xy: 1, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-L
+  rotate: false
+  xy: 227, 155
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-S
+  rotate: false
+  xy: 293, 891
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 circle
   rotate: false
-  xy: 1, 69
-  size: 128, 128
-  orig: 128, 128
+  xy: 359, 981
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
 quad
-  rotate: false
-  xy: 1, 35
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-square-outline
-  rotate: false
-  xy: 131, 165
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-triangle-outline
   rotate: false
   xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+note-1
+  rotate: false
+  xy: 67, 83
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+note-2
+  rotate: false
+  xy: 227, 137
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 particleSprite
   rotate: false
-  xy: 35, 57
+  xy: 293, 879
   size: 10, 10
   orig: 10, 10
   offset: 0, 0

@@ -12,7 +12,7 @@ import java.util.*
 class JuicyShapeManager(color: Color, numShapes: Int) {
 
     private companion object PossibleShapes {
-        @JvmField val SHAPES: List<String> = listOf("square-outline", "triangle-outline")
+        @JvmField val SHAPES: List<String> = listOf("note-1", "note-2")
         private const val MAX_SETS: Int = 3
     }
 

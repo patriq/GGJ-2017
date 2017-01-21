@@ -13,7 +13,7 @@ class JuicyShape(textureName: String, val color: Color, val position: Vector2) {
         private const val ANGLE_INC: Float = 0.1f
         private const val ALPHA_DEC: Float = 0.0025f
         /** Size will vary between 7 and 12, including both. */
-        @JvmField val SIZE_RANGE: FloatArray = floatArrayOf(7f, 8f, 9f, 10f, 11f, 12f)
+        @JvmField val SIZE_RANGE: IntRange = 10 until 20
     }
 
     private val region: TextureRegion
@@ -41,8 +41,8 @@ class JuicyShape(textureName: String, val color: Color, val position: Vector2) {
     }
 
     private fun pickRandomSize(): Float {
-        val range: Int = (SIZE_RANGE.last().toInt() - SIZE_RANGE.first().toInt()) + 1
-        return (Math.random().toFloat() * range) + SIZE_RANGE.first().toInt()
+        val range: Int = (SIZE_RANGE.last() - SIZE_RANGE.first()) + 1
+        return (Math.random().toFloat() * range) + SIZE_RANGE.first()
     }
 
     fun update() {
