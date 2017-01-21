@@ -1,6 +1,5 @@
 package com.theend.game.state.game
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -44,9 +43,8 @@ class PlayState(manager: StateManager) : StateAdapter(manager) {
     private fun checkChordInteractions(chordIndex: Int) {
         guitarArm.applyForceToChord(chordIndex)
         if (guitarArm.chords[chordIndex].fallingNotes.isEmpty()) return
-        guitarArm.chords[chordIndex].fallingNotes.first().apply {
-            this.startImploding()
-        }
+        guitarArm.activateJuicyShapesAtChord(chordIndex)
+        guitarArm.chords[chordIndex].apply { this.fallingNotes.first().startImploding() }
     }
 
     override fun resize(width: Int, height: Int) {
@@ -58,13 +56,13 @@ class PlayState(manager: StateManager) : StateAdapter(manager) {
         physicsWorld.update()
         guitarArm.update()
         strumBar.update()
-        println(Gdx.graphics.framesPerSecond)
     }
 
     override fun render(batch: Batch) {
         physicsWorld.render()
         batch.projectionMatrix = manager.camera.combined
         batch.begin()
+//        guitarArm.renderArmRegion(batch)
         strumBar.render(batch)
         guitarArm.render(batch)
         batch.end()

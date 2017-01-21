@@ -5,12 +5,26 @@ filter: Linear,Linear
 repeat: none
 circle
   rotate: false
-  xy: 1, 35
+  xy: 1, 69
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 quad
+  rotate: false
+  xy: 1, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+square-outline
+  rotate: false
+  xy: 131, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+triangle-outline
   rotate: false
   xy: 1, 1
   size: 32, 32
@@ -19,7 +33,7 @@ quad
   index: -1
 particleSprite
   rotate: false
-  xy: 131, 153
+  xy: 35, 57
   size: 10, 10
   orig: 10, 10
   offset: 0, 0

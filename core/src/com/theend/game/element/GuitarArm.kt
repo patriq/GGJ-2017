@@ -2,10 +2,12 @@ package com.theend.game.element
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import com.theend.game.Game
+import com.theend.game.res.ResourceHandler
 
 class GuitarArm(world: World, renderer: ShapeRenderer) {
 
@@ -15,7 +17,12 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
         private const val NUM_CHORDS: Int = 4
         private const val CHORD_GAP: Float = 40f
         private const val ARM_Y: Float = 800f
+        private const val ARM_REGION_MARGIN: Float = 50f
     }
+
+    private val armRegion: TextureRegion
+    private val armRegionPos: Vector2
+    private val armRegionWidth: Float
 
     val chords: MutableList<Chord>
 
@@ -31,6 +38,9 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
             val chordPosition: Vector2 = Vector2(x, y)
             chords.add(Chord(world, renderer, chordPosition, CHORD_COLORS[it]))
         }
+        armRegion = ResourceHandler.getTexture("quad")
+        armRegionWidth = (NUM_CHORDS * Chord.SUPPORT_SIZE) + (NUM_CHORDS - 1) * CHORD_GAP + ARM_REGION_MARGIN
+        armRegionPos = Vector2(startingX - Chord.SUPPORT_SIZE / 2f - ARM_REGION_MARGIN / 2f, -50f)
     }
 
     fun applyForceToChord(chordIndex: Int) {
@@ -62,12 +72,21 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
         chords[chordIndex].fallingNotes.add(Note(color, position, width, height))
     }
 
+    fun activateJuicyShapesAtChord(chordIndex: Int) {
+        chords[chordIndex].activateJuicyShapes()
+    }
+
     fun update() {
         chords.forEach(Chord::update)
     }
 
     fun render(batch: Batch) {
         chords.forEach { it.render(batch) }
+    }
+
+    fun renderArmRegion(batch: Batch) {
+        batch.color = Color.WHITE
+        batch.draw(armRegion, armRegionPos.x, armRegionPos.y, armRegionWidth, 800f)
     }
 
     fun dispose() {

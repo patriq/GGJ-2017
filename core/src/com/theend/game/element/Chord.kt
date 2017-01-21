@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.joints.RopeJointDef
 import com.theend.game.b2d.toB2DUnits
 import com.theend.game.b2d.toPixels
+import com.theend.game.juice.JuicyShapeManager
 
 /**
  * A [Chord] is composed by two supports (top and bottom) and a rope.
@@ -29,9 +30,11 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
     private val topSupport: Body
     private val botSupport: Body
     private val ropes: List<Joint>
-    var middleSegment: Body
 
+    var middleSegment: Body
     var fallingNotes: MutableList<Note>
+
+    private var juiceManager: JuicyShapeManager
 
     init {
         topSupport = createSupport(topSupportPosition, SUPPORT_SIZE, SUPPORT_SIZE)
@@ -41,6 +44,7 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
         middleSegment = createMiddleSegment(middlePosition, MIDDLE_SEGMENT_WIDTH, MIDDLE_SEGMENT_HEIGHT)
         ropes = createRopes()
         fallingNotes = mutableListOf()
+        juiceManager = JuicyShapeManager(this.color, 20)
     }
 
     /**
@@ -128,7 +132,7 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
         return this.position.y <= OUT_OF_BOUNDS_GAP
     }
 
-    fun update() {
+    private fun updateFallingNotes() {
         val markedToDelete: MutableList<Note> = mutableListOf()
         fallingNotes.forEach {
             val noteX: Float = middleSegment.position.toPixels().x - (it.width / 2f)
@@ -139,6 +143,15 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
             }
         }
         markedToDelete.forEach { fallingNotes.remove(it) }
+    }
+
+    fun activateJuicyShapes() {
+        juiceManager.blastAroundCenter(this.middleSegment.position.toPixels())
+    }
+
+    fun update() {
+        updateFallingNotes()
+        juiceManager.update()
     }
 
     /**
@@ -156,7 +169,11 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
     fun render(batch: Batch) {
         renderChords(batch)
         fallingNotes.forEach { it.render(batch) }
+        juiceManager.render(batch)
     }
 
-    fun dispose() = fallingNotes.forEach(Note::dispose)
+    fun dispose() {
+        fallingNotes.forEach(Note::dispose)
+        juiceManager.dispose()
+    }
 }
