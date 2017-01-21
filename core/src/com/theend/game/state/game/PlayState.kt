@@ -31,7 +31,7 @@ class PlayState(manager: StateManager) : StateAdapter(manager), BeatListener, Wa
         strumBar = StrumBar(Vector2(Game.WORLD_WIDTH / 2f - 165f, 70f), 300f, 20f)
         random = Random()
 
-        song = Song("sweet")
+        song = Song("metro")
         song.addBeatListener(this)
         song.addWarnListener(this)
         song.play()
@@ -48,6 +48,7 @@ class PlayState(manager: StateManager) : StateAdapter(manager), BeatListener, Wa
             Input.Keys.D -> chord = 2
             Input.Keys.F -> chord = 3
         }
+        if (chord == -1) return false
         pressTimes.add(Beat(song.position.toInt(), 0, chord))
         checkChordInteractions(chord)
         return true
@@ -58,6 +59,7 @@ class PlayState(manager: StateManager) : StateAdapter(manager), BeatListener, Wa
     }
 
     override fun onBeat(event: BeatEvent) {
+        println("Beat!")
         beatTimes.add(event)
     }
 
@@ -65,7 +67,6 @@ class PlayState(manager: StateManager) : StateAdapter(manager), BeatListener, Wa
         guitarArm.applyForceToChord(chordIndex)
         if (guitarArm.chords[chordIndex].fallingNotes.isEmpty()) return
         guitarArm.activateJuicyShapesAtChord(chordIndex)
-        guitarArm.chords[chordIndex].apply { this.fallingNotes.first().startImploding() }
     }
 
     override fun resize(width: Int, height: Int) {
@@ -83,21 +84,19 @@ class PlayState(manager: StateManager) : StateAdapter(manager), BeatListener, Wa
         val toDelete: MutableList<Beat> = mutableListOf()
         for (pressTime in pressTimes) {
             for (beatTime in beatTimes) {
-                if (Math.abs(pressTime.beatPosition - beatTime.musicPosition) < 100) {
+                if (Math.abs(pressTime.beatPosition - beatTime.musicPosition) < 50 && pressTime.chord == beatTime.beat.chord) {
                     println("Ya!")
                     toDelete.add(pressTime)
                     beatTimes.remove(beatTime)
+                    guitarArm.chords[pressTime.chord].apply { this.fallingNotes.first().startImploding() }
                     break
                 }
             }
         }
         pressTimes.removeAll(toDelete)
-        for (chord in guitarArm.chords) {
-            for (note in chord.fallingNotes) {
-                note.position.y = strumBar.position.y + strumBar.height + ((note.beat.beatPosition - song.position) / song.warnMilliseconds) * (Game.WORLD_HEIGHT - strumBar.position.y - strumBar.height)
-//                note.position.y -= ((note.beat.beatPosition - song.position) / song.warnMilliseconds) * (Game.WORLD_HEIGHT - strumBar.position.y - strumBar.height) * delta
-            }
-        }
+        for (chord in guitarArm.chords)
+            for (note in chord.fallingNotes)
+                note.position.y = strumBar.position.y + strumBar.height - 0.5f + ((note.beat.beatPosition - song.position) / song.warnMilliseconds) * (Game.WORLD_HEIGHT - strumBar.position.y - strumBar.height)
     }
 
     override fun render(batch: Batch) {
