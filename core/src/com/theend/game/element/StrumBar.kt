@@ -9,7 +9,7 @@ import com.theend.game.res.ResourceHandler
 class StrumBar(val position: Vector2, val width: Float, val height: Float) {
 
     private companion object {
-        @JvmField val BAR_COLOR: Color = Color.BROWN
+        @JvmField val BAR_COLOR: Color = Color.RED
     }
 
     private val barRegion: TextureRegion

@@ -14,7 +14,7 @@ class Game : ApplicationAdapter() {
     companion object {
         const val WORLD_WIDTH: Int = 1280
         const val WORLD_HEIGHT: Int = 720
-        const val TITLE: String = "Waves 'n Hoes"
+        const val TITLE: String = "Color Chord"
     }
 
     lateinit internal var manager: StateManager

@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
+import com.theend.game.core.data.song.Beat
 import com.theend.game.res.ResourceHandler
 
-class Note(val color: Color, val position: Vector2, var width: Float, var height: Float) {
+class Note(val color: Color, val position: Vector2, var width: Float, var height: Float, var beat: Beat) {
 
     companion object {
         const val IMPLOSION_SCALE_AMOUNT = 0.2f
@@ -48,7 +49,7 @@ class Note(val color: Color, val position: Vector2, var width: Float, var height
     }
 
     fun update() {
-        this.position.y -= 3
+//        this.position.y -= 3
         particles.setPosition(this.position.x, this.position.y)
         if (imploding) {
             particles.setPosition(this.position.x, this.position.y)

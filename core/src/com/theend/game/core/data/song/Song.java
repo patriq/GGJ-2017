@@ -15,26 +15,38 @@ public class Song {
 
     private List<Beat> beats;
     private List<BeatListener> beatListeners;
+    private List<WarnListener> warnListeners;
     private Music music;
 
-    private float lastBeat;
+    private float warnMilliseconds = 2000;
+    private int nextWarnPosition;
+    private Beat nextWarn;
+
     private float lastFrameMusicPosition;
     private Beat nextBeat;
     private int nextBeatPosition;
 
-    public Song(String fileName) {
-        this.beats = new LinkedList<>();
-        loadSongInfo(SONGS_DIRECTORY + fileName + SONG_EXTENSION);
-        nextBeatPosition = 0;
-        nextBeat = this.beats.get(nextBeatPosition);
+    public Song(String songName) {
+        String songDirectory = SONGS_DIRECTORY + songName + "/";
 
-        this.music = Gdx.audio.newMusic(Gdx.files.internal(SONGS_DIRECTORY + fileName + AUDIO_EXTENSION));
+        this.beats = new LinkedList<>();
+        loadSongInfo(songDirectory + songName + SONG_EXTENSION);
+        nextBeatPosition = nextWarnPosition = 0;
+        nextWarn = nextBeat = this.beats.get(nextBeatPosition);
+
+        this.music = Gdx.audio.newMusic(Gdx.files.internal(songDirectory + songName + AUDIO_EXTENSION));
         this.beatListeners = new LinkedList<>();
+        this.warnListeners = new LinkedList<>();
     }
 
     public void update(float delta) {
-        if(music.isPlaying()){
-            float currentFrameMusicPosition = (music.getPosition() - delta / 2) * 1000; // Random delta / 2 :) maybe it helps
+        if (music.isPlaying()) {
+            float currentFrameMusicPosition = getPosition(); // Random delta / 2 :) maybe it helps
+            while (nextWarn.getBeatPosition() > lastFrameMusicPosition + warnMilliseconds && nextWarn.getBeatPosition() <= currentFrameMusicPosition + warnMilliseconds) {
+                BeatEvent event = new BeatEvent(nextWarn, currentFrameMusicPosition);
+                for (WarnListener listener : warnListeners) listener.onWarn(event);
+                nextWarn = this.beats.get(++nextWarnPosition);
+            }
             while (nextBeat.getBeatPosition() > lastFrameMusicPosition && nextBeat.getBeatPosition() <= currentFrameMusicPosition) {
                 BeatEvent event = new BeatEvent(nextBeat, currentFrameMusicPosition);
                 for (BeatListener listener : beatListeners) listener.onBeat(event);
@@ -57,8 +69,17 @@ public class Song {
     }
 
     public float getPosition() {
-        return music.getPosition();
+        return music.getPosition() * 1000;
     }
+
+    public void addWarnListener(WarnListener listener) {
+        this.warnListeners.add(listener);
+    }
+
+    public void removeWarnListener(WarnListener listener) {
+        this.warnListeners.remove(listener);
+    }
+
 
     public void addBeatListener(BeatListener listener) {
         this.beatListeners.add(listener);
@@ -70,6 +91,14 @@ public class Song {
 
     public void setOnCompletionListener(Music.OnCompletionListener listener) {
         music.setOnCompletionListener(listener);
+    }
+
+    public List<Beat> getBeats() {
+        return beats;
+    }
+
+    public float getWarnMilliseconds() {
+        return warnMilliseconds;
     }
 
     private void loadSongInfo(String filePath) {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import com.theend.game.Game
 import com.theend.game.res.ResourceHandler
+import com.theend.game.core.data.song.Beat
 
 class GuitarArm(world: World, renderer: ShapeRenderer) {
 
@@ -17,7 +18,7 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
         private const val NUM_CHORDS: Int = 4
         private const val CHORD_GAP: Float = 40f
         private const val ARM_Y: Float = 800f
-        private const val ARM_REGION_MARGIN: Float = 50f
+        private const val ARM_REGION_MARGIN : Float = 50f
     }
 
     private val armRegion: TextureRegion
@@ -66,10 +67,10 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
      * @param width         width of the note texture.
      * @param height        height of the note texture.
      */
-    fun spawnNoteAtChord(chordIndex: Int, width: Float, height: Float) {
+    fun spawnNoteAtChord(chordIndex: Int, width: Float, height: Float, beat : Beat) {
         val color: Color = chords[chordIndex].color
         val position: Vector2 = this.getSpawnLoc(chordIndex, width)
-        chords[chordIndex].fallingNotes.add(Note(color, position, width, height))
+        chords[chordIndex].fallingNotes.add(Note(color, position, width, height, beat))
     }
 
     fun activateJuicyShapesAtChord(chordIndex: Int) {
