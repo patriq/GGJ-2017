@@ -25,6 +25,7 @@ class StateManager {
         currentState?.dispose()
         currentState = state
         Gdx.input.inputProcessor = currentState
+        currentState?.resize(Gdx.graphics.width, Gdx.graphics.height)
     }
 
     internal fun resize(width: Int, height: Int) {
