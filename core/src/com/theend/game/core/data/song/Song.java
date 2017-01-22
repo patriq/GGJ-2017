@@ -16,6 +16,7 @@ public class Song {
     private List<Beat> beats;
     private List<BeatListener> beatListeners;
     private List<WarnListener> warnListeners;
+    private List<Music.OnCompletionListener> completeListeners;
     private Music music;
 
     private float warnMilliseconds = 2000;
@@ -25,6 +26,9 @@ public class Song {
     private float lastFrameMusicPosition;
     private Beat nextBeat;
     private int nextBeatPosition;
+
+    private boolean moreWarns = true;
+    private boolean moreBeats = true;
 
     public Song(String songName) {
         String songDirectory = SONGS_DIRECTORY + songName + "/";
@@ -37,22 +41,39 @@ public class Song {
         this.music = Gdx.audio.newMusic(Gdx.files.internal(songDirectory + songName + AUDIO_EXTENSION));
         this.beatListeners = new LinkedList<>();
         this.warnListeners = new LinkedList<>();
+        this.completeListeners = new LinkedList<>();
     }
 
     public void update(float delta) {
         if (music.isPlaying()) {
             float currentFrameMusicPosition = getPosition(); // Random delta / 2 :) maybe it helps
-            while (nextWarn.getBeatPosition() > lastFrameMusicPosition + warnMilliseconds && nextWarn.getBeatPosition() <= currentFrameMusicPosition + warnMilliseconds) {
+            while (moreWarns && nextWarn.getBeatPosition() > lastFrameMusicPosition + warnMilliseconds && nextWarn.getBeatPosition() <= currentFrameMusicPosition + warnMilliseconds) {
                 BeatEvent event = new BeatEvent(nextWarn, currentFrameMusicPosition);
                 for (WarnListener listener : warnListeners) listener.onWarn(event);
+                if (nextWarnPosition + 1 >= this.beats.size()) {
+                    moreWarns = false;
+                    break;
+                }
                 nextWarn = this.beats.get(++nextWarnPosition);
             }
-            while (nextBeat.getBeatPosition() > lastFrameMusicPosition && nextBeat.getBeatPosition() <= currentFrameMusicPosition) {
+            while (moreBeats && nextBeat.getBeatPosition() > lastFrameMusicPosition && nextBeat.getBeatPosition() <= currentFrameMusicPosition) {
                 BeatEvent event = new BeatEvent(nextBeat, currentFrameMusicPosition);
                 for (BeatListener listener : beatListeners) listener.onBeat(event);
+                if (nextBeatPosition + 1 >= this.beats.size()) {
+                    moreBeats = false;
+                    break;
+                }
                 nextBeat = this.beats.get(++nextBeatPosition);
             }
             lastFrameMusicPosition = currentFrameMusicPosition;
+            if(!moreBeats){
+                music.setVolume(music.getVolume()-music.getVolume()*delta);
+                System.out.println(music.getVolume());
+                if(music.getVolume() < 0.05){
+                    music.stop();
+                    for (Music.OnCompletionListener listener : completeListeners) listener.onCompletion(music);
+                }
+            }
         }
     }
 
@@ -64,8 +85,9 @@ public class Song {
         music.pause();
     }
 
-    public void stop() {
-        music.stop();
+    public void fade() {
+        moreBeats = false;
+        moreWarns = false;
     }
 
     public float getPosition() {
@@ -90,6 +112,7 @@ public class Song {
     }
 
     public void setOnCompletionListener(Music.OnCompletionListener listener) {
+        this.completeListeners.add(listener);
         music.setOnCompletionListener(listener);
     }
 
