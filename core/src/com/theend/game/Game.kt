@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.theend.game.res.ResourceHandler
 import com.theend.game.state.StateManager
-import com.theend.game.state.game.PlayState
+import com.theend.game.state.game.MenuState
 
 class Game : ApplicationAdapter() {
 
@@ -24,7 +24,7 @@ class Game : ApplicationAdapter() {
         ResourceHandler.init("pack.pack")
         batch = SpriteBatch()
         manager = StateManager()
-        manager.setState(PlayState(manager))
+        manager.setState(MenuState(manager))
     }
 
     override fun resize(width: Int, height: Int) {

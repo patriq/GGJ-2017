@@ -10,11 +10,25 @@ guitarArm
   orig: 290, 800
   offset: 0, 0
   index: -1
-title
+menu
   rotate: false
   xy: 1, 101
   size: 224, 118
   orig: 224, 118
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 227, 101
+  size: 224, 118
+  orig: 224, 118
+  offset: 0, 0
+  index: -1
+key-A-pressed
+  rotate: false
+  xy: 1, 35
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 key-A
@@ -24,30 +38,51 @@ key-A
   orig: 64, 64
   offset: 0, 0
   index: -1
+key-K-pressed
+  rotate: false
+  xy: 67, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 key-K
-  rotate: false
-  xy: 1, 35
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-key-L
-  rotate: false
-  xy: 227, 155
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-key-S
   rotate: false
   xy: 293, 891
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+key-L-pressed
+  rotate: false
+  xy: 359, 957
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-L
+  rotate: false
+  xy: 133, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-S-clicked
+  rotate: false
+  xy: 293, 825
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+key-S
+  rotate: false
+  xy: 359, 891
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 circle
   rotate: false
-  xy: 359, 981
+  xy: 425, 981
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -61,21 +96,21 @@ quad
   index: -1
 note-1
   rotate: false
-  xy: 67, 83
+  xy: 199, 83
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 note-2
   rotate: false
-  xy: 227, 137
+  xy: 293, 807
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 particleSprite
   rotate: false
-  xy: 293, 879
+  xy: 359, 879
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
