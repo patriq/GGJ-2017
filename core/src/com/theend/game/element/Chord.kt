@@ -27,7 +27,7 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
         const val SUPPORT_SIZE: Float = 30f
     }
 
-    private val topSupport: Body
+    val topSupport: Body
     private val botSupport: Body
     private val ropes: List<Joint>
 
@@ -35,6 +35,9 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
     var fallingNotes: MutableList<Note>
 
     private var juiceManager: JuicyShapeManager
+
+    /** For the [StrumBarRing]. */
+    val originalColor: Color
 
     init {
         topSupport = createSupport(topSupportPosition, SUPPORT_SIZE, SUPPORT_SIZE)
@@ -44,7 +47,8 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
         middleSegment = createMiddleSegment(middlePosition, MIDDLE_SEGMENT_WIDTH, MIDDLE_SEGMENT_HEIGHT)
         ropes = createRopes()
         fallingNotes = mutableListOf()
-        juiceManager = JuicyShapeManager(this.color, 20)
+        juiceManager = JuicyShapeManager(this.color, 10)
+        originalColor = color
     }
 
     /**
@@ -120,7 +124,7 @@ class Chord(val world: World, val renderer: ShapeRenderer, topSupportPosition: V
     /**
      * Draws a line segment that starts at point x1 and ends at point x2.
      *
-     * @param x1    line-segment beggining; a [Vector2] in pixels.
+     * @param x1    line-segment beginning; a [Vector2] in pixels.
      * @param x2    line-segment end; a [Vector2] in pixels.
      */
     private fun drawSegment(x1: Vector2, x2: Vector2) {

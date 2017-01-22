@@ -7,23 +7,27 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import com.theend.game.Game
-import com.theend.game.res.ResourceHandler
 import com.theend.game.core.data.song.Beat
+import com.theend.game.res.ResourceHandler
 
 class GuitarArm(world: World, renderer: ShapeRenderer) {
 
     companion object {
         @JvmField val FORCE: Vector2 = Vector2(1.5f, 0f)
-        @JvmField val CHORD_COLORS: List<Color> = listOf(Color.RED, Color.GREEN, Color.PURPLE, Color.ORANGE)
+        @JvmField val CHORD_COLORS: List<Color> = listOf(
+                Color(208 /255f, 40 / 255f, 68 / 255f, 1f),
+                Color(56/255f, 210/255f, 20/255f, 1f),
+                Color(200/255f, 47/255f, 177/25f, 1f),
+                Color(247/255f, 225/255f, 46/255f, 1f)
+        )
         private const val NUM_CHORDS: Int = 4
         private const val CHORD_GAP: Float = 40f
         private const val ARM_Y: Float = 800f
-        private const val ARM_REGION_MARGIN : Float = 50f
     }
 
     private val armRegion: TextureRegion
-    private val armRegionPos: Vector2
-    private val armRegionWidth: Float
+    val armRegionPos: Vector2
+    val armRegionWidth: Float
 
     val chords: MutableList<Chord>
 
@@ -34,14 +38,16 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
         chords = mutableListOf()
         startingX = (Game.WORLD_WIDTH - ((NUM_CHORDS * Chord.SUPPORT_SIZE) + (NUM_CHORDS - 1) * CHORD_GAP)) / 2f
         (0 until NUM_CHORDS).forEach {
-            val x: Float = startingX + (it * Chord.SUPPORT_SIZE) + (it * CHORD_GAP)
+            val x: Float = startingX + it * (Chord.SUPPORT_SIZE + CHORD_GAP) + Chord.SUPPORT_SIZE / 2
             val y: Float = ARM_Y
             val chordPosition: Vector2 = Vector2(x, y)
             chords.add(Chord(world, renderer, chordPosition, CHORD_COLORS[it]))
         }
-        armRegion = ResourceHandler.getTexture("quad")
-        armRegionWidth = (NUM_CHORDS * Chord.SUPPORT_SIZE) + (NUM_CHORDS - 1) * CHORD_GAP + ARM_REGION_MARGIN
-        armRegionPos = Vector2(startingX - Chord.SUPPORT_SIZE / 2f - ARM_REGION_MARGIN / 2f, -50f)
+        armRegion = ResourceHandler.getTexture("guitarArm")
+        armRegionWidth = (NUM_CHORDS * Chord.SUPPORT_SIZE) + (NUM_CHORDS - 1) * CHORD_GAP + 2* CHORD_GAP
+        armRegionPos = Vector2(startingX - CHORD_GAP, -80f)
+        println(armRegionPos)
+        print(armRegionWidth)
     }
 
     fun applyForceToChord(chordIndex: Int) {
@@ -67,7 +73,7 @@ class GuitarArm(world: World, renderer: ShapeRenderer) {
      * @param width         width of the note texture.
      * @param height        height of the note texture.
      */
-    fun spawnNoteAtChord(chordIndex: Int, width: Float, height: Float, beat : Beat) {
+    fun spawnNoteAtChord(chordIndex: Int, width: Float, height: Float, beat: Beat) {
         val color: Color = chords[chordIndex].color
         val position: Vector2 = this.getSpawnLoc(chordIndex, width)
         chords[chordIndex].fallingNotes.add(Note(color, position, width, height, beat))

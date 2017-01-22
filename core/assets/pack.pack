@@ -101,7 +101,7 @@ key-L
   orig: 64, 64
   offset: 0, 0
   index: -1
-key-S-clicked
+key-S-pressed
   rotate: false
   xy: 122, 37
   size: 64, 64

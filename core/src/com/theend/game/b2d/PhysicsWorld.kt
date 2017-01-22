@@ -19,7 +19,7 @@ class PhysicsWorld {
     init {
         world = World(GRAVITY, true)
         debugRenderer = PhysicsDebugger(world)
-        debugging = true
+        debugging = false
     }
 
     fun resize(width: Int, height: Int) = debugRenderer.resize(width, height)

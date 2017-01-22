@@ -9,10 +9,11 @@ import com.badlogic.gdx.math.Vector2
 import com.theend.game.core.data.song.Beat
 import com.theend.game.res.ResourceHandler
 
-class Note(val color: Color, val position: Vector2, var width: Float, var height: Float, var beat: Beat) {
+class Note(var color: Color, val position: Vector2, var width: Float, var height: Float, var beat: Beat) {
 
     companion object {
-        const val IMPLOSION_SCALE_AMOUNT = 0.2f
+        const val IMPLOSION_SCALE_AMOUNT = 0.05f
+        private const val PARTICLE_SCALE: Float = 10f
         private const val EFFECTS_PATH: String = "effects"
         private const val PARTICLES_PATH: String = "$EFFECTS_PATH/explosion.p"
     }
@@ -31,6 +32,7 @@ class Note(val color: Color, val position: Vector2, var width: Float, var height
             this.load(Gdx.files.internal(PARTICLES_PATH), Gdx.files.internal(EFFECTS_PATH))
             val colorToArray: FloatArray = floatArrayOf(this@Note.color.r, this@Note.color.g, this@Note.color.b)
             this.emitters[0].tint.colors = colorToArray
+            this.emitters[0].scale.setHigh(PARTICLE_SCALE)
         }
     }
 
@@ -49,7 +51,6 @@ class Note(val color: Color, val position: Vector2, var width: Float, var height
     }
 
     fun update() {
-//        this.position.y -= 3
         particles.setPosition(this.position.x, this.position.y)
         if (imploding) {
             particles.setPosition(this.position.x, this.position.y)

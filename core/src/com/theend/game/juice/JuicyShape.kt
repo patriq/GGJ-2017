@@ -9,7 +9,6 @@ import com.theend.game.res.ResourceHandler
 class JuicyShape(textureName: String, val color: Color, val position: Vector2) {
 
     private companion object MagicValue {
-        private const val ANGLE_RANDOM_MULT: Float = 50f
         private const val ANGLE_INC: Float = 0.1f
         private const val ALPHA_DEC: Float = 0.0025f
         /** Size will vary between 7 and 12, including both. */
@@ -23,19 +22,22 @@ class JuicyShape(textureName: String, val color: Color, val position: Vector2) {
 
     private var randomXIncrement: Float
     private var randomYIncrement: Float
+    private var angleIncrement: Float
 
     var shouldBeRendered: Boolean
     private var oldBatchColor: Color?
 
     init {
         region = ResourceHandler.getTexture(textureName)
-        angle = Math.random().toFloat() * ANGLE_RANDOM_MULT
+        angle = Math.random().toFloat()
         size = pickRandomSize()
         alpha = 1f
-        randomXIncrement = Math.random().toFloat() + 0.1f
+        randomXIncrement = Math.random().toFloat() + 0.05f
         /* Change the direction on the X axis!. */
         if (Math.random() <= 0.5) randomXIncrement *= -1f
         randomYIncrement = Math.random().toFloat() / 2f + 0.05f
+        angleIncrement = ANGLE_INC
+        if (Math.random() <= 0.5) angleIncrement *= -1
         shouldBeRendered = false
         oldBatchColor = null
     }
@@ -49,7 +51,7 @@ class JuicyShape(textureName: String, val color: Color, val position: Vector2) {
         /* Keep this outside the if statement for a larger explosion. */
         position.add(randomXIncrement, randomYIncrement)
         if (shouldBeRendered) {
-            angle += ANGLE_INC
+            angle += angleIncrement
             alpha -= ALPHA_DEC
             if (alpha <= 0f) {
                 alpha = 1f

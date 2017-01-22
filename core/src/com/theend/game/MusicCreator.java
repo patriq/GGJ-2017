@@ -25,7 +25,7 @@ public class MusicCreator extends ApplicationAdapter implements BeatListener {
 
     @Override
     public void create() {
-        song = new Song("sweet");
+        song = new Song("extremes");
         if (LISTEN)
             song.addBeatListener(this);
         Gdx.input.setInputProcessor(new InputListener());

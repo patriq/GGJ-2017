@@ -68,7 +68,6 @@ public class Song {
             lastFrameMusicPosition = currentFrameMusicPosition;
             if(!moreBeats){
                 music.setVolume(music.getVolume()-music.getVolume()*delta);
-                System.out.println(music.getVolume());
                 if(music.getVolume() < 0.05){
                     music.stop();
                     for (Music.OnCompletionListener listener : completeListeners) listener.onCompletion(music);
