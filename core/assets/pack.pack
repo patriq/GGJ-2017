@@ -5,119 +5,147 @@ filter: Linear,Linear
 repeat: none
 guitarArm
   rotate: false
-  xy: 1, 221
+  xy: 1, 223
   size: 290, 800
   orig: 290, 800
   offset: 0, 0
   index: -1
-menu
+end-menu
   rotate: false
-  xy: 1, 101
+  xy: 1, 103
   size: 224, 118
   orig: 224, 118
   offset: 0, 0
   index: -1
-scores
+lose-game
   rotate: false
-  xy: 293, 951
-  size: 119, 70
-  orig: 119, 70
+  xy: 293, 905
+  size: 224, 118
+  orig: 224, 118
+  offset: 0, 0
+  index: -1
+menu
+  rotate: false
+  xy: 293, 785
+  size: 224, 118
+  orig: 224, 118
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 227, 101
+  xy: 519, 905
   size: 224, 118
   orig: 224, 118
   offset: 0, 0
   index: -1
+win-game
+  rotate: false
+  xy: 293, 665
+  size: 158, 118
+  orig: 158, 118
+  offset: 0, 0
+  index: -1
+end-stats
+  rotate: false
+  xy: 519, 801
+  size: 119, 102
+  orig: 119, 102
+  offset: 0, 0
+  index: -1
+scores
+  rotate: false
+  xy: 1, 31
+  size: 119, 70
+  orig: 119, 70
+  offset: 0, 0
+  index: -1
 key-A-pressed
   rotate: false
-  xy: 1, 35
+  xy: 227, 157
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-A
   rotate: false
-  xy: 293, 885
+  xy: 745, 959
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-K-pressed
   rotate: false
-  xy: 414, 957
+  xy: 293, 599
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-K
   rotate: false
-  xy: 67, 35
+  xy: 453, 719
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-L-pressed
   rotate: false
-  xy: 293, 819
+  xy: 519, 735
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-L
   rotate: false
-  xy: 133, 35
+  xy: 640, 839
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-S-clicked
   rotate: false
-  xy: 293, 753
+  xy: 122, 37
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-S
   rotate: false
-  xy: 199, 35
+  xy: 811, 959
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 359, 909
+  xy: 227, 115
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 quad
   rotate: false
-  xy: 1, 1
+  xy: 745, 925
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 note-1
   rotate: false
-  xy: 480, 1005
+  xy: 1, 13
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 note-2
   rotate: false
-  xy: 293, 735
+  xy: 293, 581
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 particleSprite
   rotate: false
-  xy: 265, 89
+  xy: 1, 1
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
