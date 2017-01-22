@@ -17,6 +17,13 @@ menu
   orig: 224, 118
   offset: 0, 0
   index: -1
+scores
+  rotate: false
+  xy: 293, 951
+  size: 119, 70
+  orig: 119, 70
+  offset: 0, 0
+  index: -1
 title
   rotate: false
   xy: 227, 101
@@ -33,28 +40,28 @@ key-A-pressed
   index: -1
 key-A
   rotate: false
-  xy: 293, 957
+  xy: 293, 885
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-K-pressed
   rotate: false
-  xy: 67, 35
+  xy: 414, 957
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-K
   rotate: false
-  xy: 293, 891
+  xy: 67, 35
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-L-pressed
   rotate: false
-  xy: 359, 957
+  xy: 293, 819
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -68,21 +75,21 @@ key-L
   index: -1
 key-S-clicked
   rotate: false
-  xy: 293, 825
+  xy: 293, 753
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 key-S
   rotate: false
-  xy: 359, 891
+  xy: 199, 35
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 425, 981
+  xy: 359, 909
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -96,21 +103,21 @@ quad
   index: -1
 note-1
   rotate: false
-  xy: 199, 83
+  xy: 480, 1005
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 note-2
   rotate: false
-  xy: 293, 807
+  xy: 293, 735
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 particleSprite
   rotate: false
-  xy: 359, 879
+  xy: 265, 89
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
